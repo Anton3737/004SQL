@@ -172,12 +172,14 @@ SELECT * FROM Customers;
 -- Задание 6
 -- Используя JOIN’s и ShopDB получить имена покупателей и имена сотрудников у которых TotalPrice товара больше 1000
 
+SELECT FK_Cust, TotalPrice FROM OrderDetails;
+ 
+-- максимальний товар закуплено на суму 576 до тисячи ніхто не накупив товару.
+SELECT FName , Qty, SUM(TotalPrice) FROM Customers  
+INNER JOIN OrderDetails on Customers.CustomerNo = OrderDetails.FK_Cust
+GROUP BY FName,Qty
+HAVING SUM(TotalPrice) = (SELECT MAX(TotalPrice) FROM OrderDetails);
 
-SELECT Customers.FName AS Customer_Name, Employees.FName AS Employees_Name
-FROM Customers
-INNER JOIN Employees
-ON Customers.CustomerNo = Employees.EmployeeID
-WHERE Salary >= 1000; 
 
 
 
